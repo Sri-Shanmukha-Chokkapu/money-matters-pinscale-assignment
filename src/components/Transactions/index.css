@@ -1,14 +1,15 @@
 .main-container {
   display: flex;
-  min-width: 100%;
   background-color: #F5F7FA;
 }
 
+.sub-container{
+  background-color: #F5F7FA;
+}
 .transactions-types{
     display: flex;
     list-style: none;
     background-color: #fff;
-    width: 100%;
     margin: 0;
 }
 .transactions-container{

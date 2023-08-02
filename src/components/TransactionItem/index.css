@@ -3,12 +3,13 @@
     height: 58px;
     border-bottom: 1px solid #E2E2E2;
     display: flex;
-    padding-left: 0;
+    padding-left: 15px;
     justify-content: space-between;
     align-items: center;
     padding-right: 20px;
     flex-shrink: 0;
 }
+
 .transaction-profile-name-container{
     display: flex;
     align-items: center;
@@ -26,6 +27,7 @@
     font-weight: 600;
     line-height: normal;
     margin-left: 25px;
+    width: 180px;
 }
 .transaction-type{
     color: #718EBF;
@@ -34,7 +36,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    width: 190px;
+    width: 180px;
     text-align: start;
 }
 .transaction-date{
@@ -55,7 +57,7 @@
     font-weight: 500;
     line-height: normal;
     margin-right: 60px;
-    width: 150px;
+    width: 120px;
 }
 .creditAmount{
     color: #16DBAA;

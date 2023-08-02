@@ -58,7 +58,7 @@ class SideBar extends Component {
             <img
               src="https://res.cloudinary.com/dpkxg8atl/image/upload/v1690613473/Logo_1_bbind2.png"
               alt="website logo"
-              className="website-logo"
+              className="website-log"
             />
           </div>
           <ul className="side-bar-components-container">
@@ -66,22 +66,22 @@ class SideBar extends Component {
               <Link to="/" className="link">
                 <div
                   className={
-                    activeTab === 'dashboard'
-                      ? 'active-name-icon-container'
-                      : 'name-icon-container'
+                    activeTab === "dashboard"
+                      ? "active-name-icon-container"
+                      : "name-icon-container"
                   }
                 >
-                  {activeTab === 'dashboard' && <div className="active" />}
+                  {activeTab === "dashboard" && <div className="active" />}
                   <AiFillHome
                     className={
-                      activeTab === 'dashboard' ? 'active-icon' : 'icon'
+                      activeTab === "dashboard" ? "active-icon" : "icon"
                     }
                   />
                   <p
                     className={
-                      activeTab === 'dashboard'
-                        ? 'active-dashboard-name'
-                        : 'dashboard-name'
+                      activeTab === "dashboard"
+                        ? "active-dashboard-name"
+                        : "dashboard-name"
                     }
                   >
                     Dashboard
@@ -93,22 +93,22 @@ class SideBar extends Component {
               <Link to="/transactions" className="link">
                 <div
                   className={
-                    activeTab === 'transactions'
-                      ? 'active-name-icon-container'
-                      : 'name-icon-container'
+                    activeTab === "transactions"
+                      ? "active-name-icon-container"
+                      : "name-icon-container"
                   }
                 >
-                  {activeTab === 'transactions' && <div className="active" />}
+                  {activeTab === "transactions" && <div className="active" />}
                   <RiMoneyDollarBoxFill
                     className={
-                      activeTab === 'transactions' ? 'active-icon' : 'icon'
+                      activeTab === "transactions" ? "active-icon" : "icon"
                     }
                   />
                   <p
                     className={
-                      activeTab === 'transactions'
-                        ? 'active-dashboard-name'
-                        : 'dashboard-name'
+                      activeTab === "transactions"
+                        ? "active-dashboard-name"
+                        : "dashboard-name"
                     }
                   >
                     {TransactionsName}
@@ -120,20 +120,20 @@ class SideBar extends Component {
               <Link to="/profile" className="link">
                 <div
                   className={
-                    activeTab === 'profile'
-                      ? 'active-name-icon-container'
-                      : 'name-icon-container'
+                    activeTab === "profile"
+                      ? "active-name-icon-container"
+                      : "name-icon-container"
                   }
                 >
-                  {activeTab === 'profile' && <div className="active" />}
+                  {activeTab === "profile" && <div className="active" />}
                   <CgProfile
-                    className={activeTab === 'profile' ? 'active-icon' : 'icon'}
+                    className={activeTab === "profile" ? "active-icon" : "icon"}
                   />
                   <p
                     className={
-                      activeTab === 'profile'
-                        ? 'active-dashboard-name'
-                        : 'dashboard-name'
+                      activeTab === "profile"
+                        ? "active-dashboard-name"
+                        : "dashboard-name"
                     }
                   >
                     Profile
@@ -167,7 +167,7 @@ class SideBar extends Component {
             className="popup-content"
             position="right center"
           >
-            {close => (
+            {(close) => (
               <div className="model">
                 <div className="overlay">
                   <div className="modal-container">
@@ -216,7 +216,7 @@ class SideBar extends Component {
           </Popup>
         </div>
       </div>
-    )
+    );
   }
 }
 

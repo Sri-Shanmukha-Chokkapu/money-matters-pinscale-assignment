@@ -145,6 +145,7 @@ class Transactions extends Component {
               key={eachTransaction.id}
               deleteTransaction={this.deleteTransaction}
               transactionDetails={eachTransaction}
+              transactionTtile={eachTransaction.transaction_name}
             />
           ))}
         </ul>
