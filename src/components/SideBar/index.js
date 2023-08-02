@@ -223,8 +223,6 @@ class SideBar extends Component {
                                 Are you sure you want to Logout?
                               </h3>
                               <p className="logout-pop-description">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed{" "}
                               </p>
                               <div className="logout-btns-con">
                                 <button

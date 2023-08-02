@@ -65,6 +65,7 @@ const EachTransaction = (props) => {
             body: JSON.stringify(transactionDetails)
           }
           await fetch(url, options)
+          window.location.reload(true)
         }else{
           editErrorMsg(true)
           editError('*Transaction name should less Than 30 characters')

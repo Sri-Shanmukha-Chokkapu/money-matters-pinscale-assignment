@@ -66,15 +66,14 @@ const AddTransaction = () => {
           body: JSON.stringify(transactionDetails),
         };
         await fetch(url, options);
-        alert("Transaction Added");
-        window.location.reload(false);
+        window.location.reload(true);
       } else {
         editErrorMsg(true);
         editError("*Transaction name should less Than 30 characters");
       }
     } else {
       editErrorMsg(true);
-      editError("*Required");
+      editError("*Fill all the fields");
     }
   };
   return (
