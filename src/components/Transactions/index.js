@@ -110,7 +110,7 @@ class Transactions extends Component{
             body: JSON.stringify(deleteTransactionId)
         }
         await fetch(url, options)
-        window.location.reload(true)
+        window.location.reload(true);
     }
 
     renderSuccessView = () => {
