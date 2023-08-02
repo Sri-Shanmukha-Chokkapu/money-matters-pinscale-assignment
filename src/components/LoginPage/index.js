@@ -23,7 +23,7 @@ const LoginForm = (props) => {
   const onSubmitSuccess = userId => {
     const { history } = props;
     Cookies.set("user_id", userId, { expires: 30 });
-    history.replace("/dashboard");
+    history.replace("/");
     setEmail("");
     setPassword("");
     setErrorMsg("");

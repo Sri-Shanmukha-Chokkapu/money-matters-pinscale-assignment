@@ -32,7 +32,7 @@ class App extends Component {
       >
         <Switch>
           <Route exact path="/login" component={LoginPage} />
-          <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+          <ProtectedRoute exact path="/" component={Dashboard} />
           <ProtectedRoute exact path="/transactions" component={Transactions} />
           <ProtectedRoute exact path="/profile" component={Profile} />
           <Route path="/not-found" component={NotFound} />
