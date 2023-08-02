@@ -21,10 +21,10 @@
 }
 
 .website-logo {
-  height: 100%;
-  width: 80%;
-  margin: auto;
+  height: 200px;
+  width: 600px;
 }
+
 .side-bar-components-container{
     height: 201px;
     flex-shrink: 0;

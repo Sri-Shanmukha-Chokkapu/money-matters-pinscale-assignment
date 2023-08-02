@@ -1,84 +1,84 @@
-import "./index.css";
-import { BiPlus } from "react-icons/bi";
-import { GrFormClose } from "react-icons/gr";
-import { Popup } from "reactjs-popup";
-import Cookies from "js-cookie";
-import { useState } from "react";
+import './index.css'
+import {BiPlus} from 'react-icons/bi'
+import {GrFormClose} from 'react-icons/gr'
+import {Popup} from 'reactjs-popup'
+import Cookies from 'js-cookie'
+import {useState} from 'react'
 
 const AddTransaction = () => {
-  const userId = Cookies.get("user_id");
-  const [transactionName, editTransactionName] = useState("");
-  const [transactionType, editTransactionType] = useState("");
-  const [category, editCategory] = useState("");
-  const [amount, editAmount] = useState("");
-  const [date, editDate] = useState("");
-  const [errorMsg, editErrorMsg] = useState(false);
-  const [error, editError] = useState("");
+  const userId = Cookies.get('user_id')
+  const [transactionName, setTransactionName] = useState('')
+  const [transactionType, setTransactionType] = useState('')
+  const [category, setCategory] = useState('')
+  const [amount, setAmount] = useState('')
+  const [date, setDate] = useState('')
+  const [errorMsg, setErrorMsg] = useState(false)
+  const [error, setError] = useState('')
 
-  const onChangeTrName = (event) => {
-    editTransactionName(event.target.value);
-  };
-  const onChangeTrType = (event) => {
-    editTransactionType(event.target.value);
-  };
-  const onChangeCategory = (event) => {
-    editCategory(event.target.value);
-  };
-  const onChangeAmount = (event) => {
-    editAmount(event.target.value);
-  };
-  const onChangeDate = (event) => {
-    editDate(event.target.value);
-  };
+  const onChangeTrName = event => {
+    setTransactionName(event.target.value)
+  }
+  const onChangeTrType = event => {
+    setTransactionType(event.target.value)
+  }
+  const onChangeCategory = event => {
+    setCategory(event.target.value)
+  }
+  const onChangeAmount = event => {
+    setAmount(event.target.value)
+  }
+  const onChangeDate = event => {
+    setDate(event.target.value)
+  }
 
-  const onSubmitForm = async (event) => {
-    event.preventDefault();
+  const onSubmitForm = async event => {
+    event.preventDefault()
     if (
-      transactionName !== "" &&
-      transactionType !== "" &&
-      category !== "" &&
-      amount !== "" &&
-      date !== ""
+      transactionName !== '' &&
+      transactionType !== '' &&
+      category !== '' &&
+      amount !== '' &&
+      date !== ''
     ) {
-      editErrorMsg(false);
+      setErrorMsg(false)
       if (transactionName.length < 30) {
-        editErrorMsg(false);
-        const parseAmount = parseInt(amount);
+        setErrorMsg(false)
+        const parseAmount = parseInt(amount)
         const url =
-          "https://bursting-gelding-24.hasura.app/api/rest/add-transaction";
+          'https://bursting-gelding-24.hasura.app/api/rest/add-transaction'
         const transactionDetails = {
           name: transactionName,
           type: transactionType,
-          category: category,
+          category,
           amount: parseAmount,
           date: new Date(date),
           user_id: userId,
-        };
+        }
         const options = {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "content-type": "application/json",
-            "x-hasura-admin-secret":
-              "g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF",
-            "x-hasura-role": "user",
-            "x-hasura-user-id": userId,
+            'content-type': 'application/json',
+            'x-hasura-admin-secret':
+              'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
+            'x-hasura-role': 'user',
+            'x-hasura-user-id': userId,
           },
           body: JSON.stringify(transactionDetails),
-        };
-        await fetch(url, options);
-        window.location.reload(true);
+        }
+        await fetch(url, options)
+        window.location.reload(true)
       } else {
-        editErrorMsg(true);
-        editError("*Transaction name should less Than 30 characters");
+        setErrorMsg(true)
+        setError('*Transaction name should less Than 30 characters')
       }
     } else {
-      editErrorMsg(true);
-      editError("*Fill all the fields");
+      setErrorMsg(true)
+      setError('*Fill all the fields')
     }
-  };
+  }
   return (
     <>
-      {userId !== "3" && (
+      {userId !== '3' && (
         <Popup
           modal
           trigger={
@@ -90,7 +90,7 @@ const AddTransaction = () => {
           className="popup-content"
           position="right center"
         >
-          {(close) => (
+          {close => (
             <form className="model" onSubmit={onSubmitForm}>
               <div className="overlay">
                 <div className="modal-container">
@@ -135,8 +135,8 @@ const AddTransaction = () => {
                       <option disabled selected>
                         Select Transaction Type
                       </option>
-                      <option value={"credit"}>Credit</option>
-                      <option value={"debit"}>Debit</option>
+                      <option value="credit">Credit</option>
+                      <option value="debit">Debit</option>
                     </select>
                   </div>
                   <div className="transaction-input-container">
@@ -191,6 +191,6 @@ const AddTransaction = () => {
         </Popup>
       )}
     </>
-  );
-};
-export default AddTransaction;
+  )
+}
+export default AddTransaction

@@ -1,77 +1,80 @@
-import { Component } from "react";
-import AddTransaction from "../AddTransaction";
-import "./index.css";
-import SideBar from "../SideBar";
-import BarCharts from "../BarCharts";
-import Loader from "react-loader-spinner";
-import Cookies from "js-cookie";
-import EachTransaction from "../EachTransaction";
+import {Component} from 'react'
+import {TailSpin} from 'react-loader-spinner'
+import Cookies from 'js-cookie'
+import AddTransaction from '../AddTransaction'
+import SideBar from '../SideBar'
+import BarCharts from '../BarCharts'
+import TransactionItem from '../TransactionItem'
+
+import './index.css'
 
 const apiStatusConstants = {
-  initial: "INITIAL",
-  success: "SUCCESS",
-  failure: "FAILURE",
-  inProgress: "IN_PROGRESS",
-};
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+  inProgress: 'IN_PROGRESS',
+}
 
 class Dashboard extends Component {
   state = {
-    creditSum: "",
-    debitSum: "",
+    creditSum: '',
+    debitSum: '',
     apiStatus: apiStatusConstants.initial,
     recentThreeTrensactionList: [],
-  };
+  }
+
   componentDidMount = () => {
-    this.getCreditAndDebitSum();
-    this.getRecentThreeTransactions();
-  };
+    this.getCreditAndDebitSum()
+    this.getRecentThreeTransactions()
+  }
 
   getRecentThreeTransactions = async () => {
-    this.setState({ apiStatus: apiStatusConstants.inProgress });
+    this.setState({apiStatus: apiStatusConstants.inProgress})
     const url =
-      " https://bursting-gelding-24.hasura.app/api/rest/all-transactions/?limit=3&offset=0";
+      ' https://bursting-gelding-24.hasura.app/api/rest/all-transactions/?limit=3&offset=0'
     const accesToken =
-      "g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF";
-    const userId = Cookies.get("user_id");
+      'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF'
+    const userId = Cookies.get('user_id')
     const options = {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "x-hasura-admin-secret": accesToken,
-        "Content-Type": "application/json",
-        "x-hasura-role": "user",
-        "x-hasura-user-id": userId,
+        'x-hasura-admin-secret': accesToken,
+        'Content-Type': 'application/json',
+        'x-hasura-role': 'user',
+        'x-hasura-user-id': userId,
       },
-    };
-    const response = await fetch(url, options);
-    const data = await response.json();
+    }
+    const response = await fetch(url, options)
+    const data = await response.json()
     if (response.ok) {
       this.setState({
         recentThreeTrensactionList: [...data.transactions],
         apiStatus: apiStatusConstants.success,
-      });
+      })
     } else {
-      this.setState({ apiStatus: apiStatusConstants.failure });
+      this.setState({apiStatus: apiStatusConstants.failure})
     }
-  };
+  }
 
   renderSuccessView = () => {
-    const { recentThreeTrensactionList } = this.state;
+    const {recentThreeTrensactionList} = this.state
     return (
       <ul className="last-transactions-container">
-        {recentThreeTrensactionList.map((eachTransaction) => (
-          <EachTransaction
+        {recentThreeTrensactionList.map(eachTransaction => (
+          <TransactionItem
             key={eachTransaction.id}
             deleteTransaction={this.deleteTransaction}
             transactionDetails={eachTransaction}
+            transactionTtile={eachTransaction.transaction_name}
           />
         ))}
       </ul>
-    );
-  };
+    )
+  }
 
   onClickReTry = () => {
-    this.getRecentThreeTransactions();
-  };
+    this.getRecentThreeTransactions()
+  }
 
   renderFailureView = () => (
     <div className="failure-container">
@@ -89,95 +92,95 @@ class Dashboard extends Component {
         Try again
       </button>
     </div>
-  );
+  )
 
   renderLoadingView = () => (
     <div className="loader-container" testid="loader">
-      <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
+      <TailSpin color="#4094EF" height={50} width={50} />
     </div>
-  );
+  )
 
   onRenderLastThreeTrs = () => {
-    const { apiStatus } = this.state;
+    const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusConstants.success:
-        return this.renderSuccessView();
+        return this.renderSuccessView()
       case apiStatusConstants.failure:
-        return this.renderFailureView();
+        return this.renderFailureView()
       case apiStatusConstants.inProgress:
-        return this.renderLoadingView();
+        return this.renderLoadingView()
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   getCreditAndDebitSum = async () => {
-    const userId = Cookies.get("user_id");
+    const userId = Cookies.get('user_id')
     const url =
-      userId === "3"
-        ? "https://bursting-gelding-24.hasura.app/api/rest/transaction-totals-admin"
-        : "https://bursting-gelding-24.hasura.app/api/rest/credit-debit-totals";
-    const userOrAdmin = userId === "3" ? "admin" : "user";
+      userId === '3'
+        ? 'https://bursting-gelding-24.hasura.app/api/rest/transaction-totals-admin'
+        : 'https://bursting-gelding-24.hasura.app/api/rest/credit-debit-totals'
+    const userOrAdmin = userId === '3' ? 'admin' : 'user'
     const accesToken =
-      "g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF";
+      'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF'
     const options = {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "x-hasura-admin-secret": accesToken,
-        "Content-Type": "application/json",
-        "x-hasura-role": userOrAdmin,
-        "x-hasura-user-id": userId,
+        'x-hasura-admin-secret': accesToken,
+        'Content-Type': 'application/json',
+        'x-hasura-role': userOrAdmin,
+        'x-hasura-user-id': userId,
       },
-    };
-    const response = await fetch(url, options);
-    const data = await response.json();
+    }
+    const response = await fetch(url, options)
+    const data = await response.json()
     if (response.ok) {
-      let creditSumData;
-      let debitSumData;
-      if (userId === "3") {
+      let creditSumData
+      let debitSumData
+      if (userId === '3') {
         creditSumData = data.transaction_totals_admin.find(
-          (each) => each.type === "credit"
-        );
+          each => each.type === 'credit',
+        )
         debitSumData = data.transaction_totals_admin.find(
-          (each) => each.type === "debit"
-        );
+          each => each.type === 'debit',
+        )
       } else {
         creditSumData = data.totals_credit_debit_transactions.find(
-          (each) => each.type === "credit"
-        );
+          each => each.type === 'credit',
+        )
         debitSumData = data.totals_credit_debit_transactions.find(
-          (each) => each.type === "debit"
-        );
+          each => each.type === 'debit',
+        )
       }
       this.setState({
         creditSum: creditSumData.sum,
         debitSum: debitSumData.sum,
-      });
+      })
     }
-  };
+  }
 
-  deleteTransaction = async (id) => {
+  deleteTransaction = async id => {
     const url =
-      " https://bursting-gelding-24.hasura.app/api/rest/delete-transaction";
-    const userId = Cookies.get("user_id");
-    const deleteTransactionId = { id };
+      ' https://bursting-gelding-24.hasura.app/api/rest/delete-transaction'
+    const userId = Cookies.get('user_id')
+    const deleteTransactionId = {id}
     const options = {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "content-type": "application/json",
-        "x-hasura-admin-secret":
-          "g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF",
-        "x-hasura-role": "user",
-        "x-hasura-user-id": userId,
+        'content-type': 'application/json',
+        'x-hasura-admin-secret':
+          'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
+        'x-hasura-role': 'user',
+        'x-hasura-user-id': userId,
       },
       body: JSON.stringify(deleteTransactionId),
-    };
-    await fetch(url, options);
-    window.location.reload(true);
-  };
+    }
+    await fetch(url, options)
+    window.location.reload(true)
+  }
 
   render() {
-    const { creditSum, debitSum } = this.state;
+    const {creditSum, debitSum} = this.state
     return (
       <div className="main-container">
         <SideBar activeTab="dashboard" />
@@ -219,7 +222,7 @@ class Dashboard extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
-export default Dashboard;
+export default Dashboard
